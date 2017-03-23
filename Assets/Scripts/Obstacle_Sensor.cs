@@ -10,6 +10,8 @@ public class Obstacle_Sensor : MonoBehaviour {
 
 	public float sensorDistance = 45f;
 
+	public string myObstacle = "";
+
 	// Use this for initialization
 	void Start () {
 
@@ -33,9 +35,9 @@ public class Obstacle_Sensor : MonoBehaviour {
 		{
 			if (active == false)
 			{
-				if (hit.collider.CompareTag ("Wall"))
+				if (hit.collider.CompareTag (myObstacle))
 				{
-					myAnim.SetTrigger ("Wall");
+					myAnim.SetTrigger ("Flash");
 					active = true;
 				}
 			}
@@ -47,8 +49,9 @@ public class Obstacle_Sensor : MonoBehaviour {
 		}
 	}
 
-	public void ChangeSensorDistance (float newDistance)
+	public void ChangeSensorDistance ()
 	{
-		sensorDistance = newDistance;
+		sensorDistance = sensorDistance * TurboTunnel_GameManager.instance.game_speed;
+		myAnim.SetFloat ("Speed", TurboTunnel_GameManager.instance.game_speed);
 	}
 }

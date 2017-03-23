@@ -8,6 +8,8 @@ public class Ship_Movement : MonoBehaviour {
 
 	public float speed;
 
+	private bool isGrounded;
+
 	// Use this for initialization
 	void Start () {
 
@@ -37,9 +39,25 @@ public class Ship_Movement : MonoBehaviour {
 
 	void CheckJump()
 	{
-		if (Input.GetButtonDown ("Jump"))
+		if (Input.GetButtonDown ("Jump") && isGrounded)
 		{
 			myRigidbody.AddForce (Vector3.up * 500f);
+		}
+	}
+
+	void OnTriggerStay(Collider col)
+	{
+		if(col.CompareTag("Ground"))
+			{
+				isGrounded = true;
+			}
+	}
+
+	void OnTriggerExit(Collider col)
+	{
+		if(col.CompareTag("Ground"))
+		{
+			isGrounded = false;
 		}
 	}
 }

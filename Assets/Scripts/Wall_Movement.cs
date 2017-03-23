@@ -12,6 +12,8 @@ public class Wall_Movement : MonoBehaviour {
 	void Start () {
 
 		myRigidbody = GetComponent<Rigidbody> ();
+
+		Setup ();
 		
 	}
 	
@@ -26,20 +28,23 @@ public class Wall_Movement : MonoBehaviour {
 		if(collider.CompareTag("Player"))
 			{
 				//Dano ao player;
-				Debug.Log("Dano");
+				
 				TurboTunnel_GameManager.instance.DamagePlayer ();
 			}
 
 		if(collider.CompareTag("Killzone"))
 		{
 			//Destroi a wall
-			Debug.Log("Destroy");
+			if (GetComponentInParent<DestroyChunk> () != null)
+			{
+				GetComponentInParent<DestroyChunk> ().ReduceChilds ();
+			}
 			Destroy(this.gameObject);
 		}
 	}
 
-	public void Setup(float newSpeed)
+	public void Setup()
 	{
-		speed = newSpeed;
+		speed = speed * TurboTunnel_GameManager.instance.game_speed;
 	}
 }
