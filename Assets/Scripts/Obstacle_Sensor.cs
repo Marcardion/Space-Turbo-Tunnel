@@ -29,7 +29,7 @@ public class Obstacle_Sensor : MonoBehaviour {
 	{
 		RaycastHit hit;
 
-		Debug.DrawRay (transform.position, transform.right * sensorDistance, Color.red);
+
 
 		if (Physics.Raycast (transform.position, transform.right, out hit, sensorDistance))
 		{
@@ -49,9 +49,20 @@ public class Obstacle_Sensor : MonoBehaviour {
 		}
 	}
 
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawRay (transform.position, transform.right * sensorDistance);
+	}
+
 	public void ChangeSensorDistance ()
 	{
 		sensorDistance = sensorDistance * TurboTunnel_GameManager.instance.game_speed;
+
+		if (sensorDistance >= 80) 
+		{
+			sensorDistance = 80;
+		}
 		myAnim.SetFloat ("Speed", TurboTunnel_GameManager.instance.game_speed);
 	}
 }
