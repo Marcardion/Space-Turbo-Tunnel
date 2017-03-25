@@ -14,9 +14,9 @@ public class Wall_Movement : MonoBehaviour {
 		myRigidbody = GetComponent<Rigidbody> ();
 
 		Setup ();
-		
+
 	}
-	
+
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
@@ -26,11 +26,11 @@ public class Wall_Movement : MonoBehaviour {
 	void OnTriggerEnter(Collider collider)
 	{
 		if(collider.CompareTag("Player"))
-			{
-				//Dano ao player;
-				
-				TurboTunnel_GameManager.instance.DamagePlayer ();
-			}
+		{
+			//Dano ao player;
+
+			TurboTunnel_GameManager.instance.DamagePlayer ();
+		}
 
 		if(collider.CompareTag("Killzone"))
 		{

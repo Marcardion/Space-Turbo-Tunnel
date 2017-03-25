@@ -23,6 +23,8 @@ public class TurboTunnel_GameManager : MonoBehaviour {
 
 	private GameObject player;
 
+	public Explosion explosionAni;
+
 	private bool generate = false;
 
 	private bool game_active = true;
@@ -85,9 +87,13 @@ public class TurboTunnel_GameManager : MonoBehaviour {
 		CheckHighScore ();
 		//Colocar animacao de morte
 		SoundManager.instance.PlaySingle(explosion, 1);
+
+		explosionAni.Play ();
+
+		yield return new WaitForSeconds (2.5f);
 		Destroy(player);
-		yield return new WaitForSeconds (2f);
 		SceneManager.LoadSceneAsync ("Game");
+
 	}
 
 	IEnumerator StartDelay()
