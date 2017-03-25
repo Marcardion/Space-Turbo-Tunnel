@@ -21,7 +21,7 @@ public class TurboTunnel_GameManager : MonoBehaviour {
 
 	public static TurboTunnel_GameManager instance;
 
-	private GameObject player;
+	private Ship_Movement player;
 
 	public Explosion explosionAni;
 
@@ -38,7 +38,7 @@ public class TurboTunnel_GameManager : MonoBehaviour {
 
 	void Start()
 	{
-		player = GameObject.FindGameObjectWithTag ("Player");
+		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Ship_Movement> ();
 
 		StartCoroutine (StartDelay ());
 	}
@@ -73,12 +73,16 @@ public class TurboTunnel_GameManager : MonoBehaviour {
 
 	public void DamagePlayer()
 	{
-		player_health--;
-
-		if (player_health <= 0)
+		if (player.active)
 		{
-			game_active = false;	
-			StartCoroutine (Death ());
+			player_health--;
+
+			if (player_health <= 0)
+			{
+				game_active = false;
+				player.active = false;
+				StartCoroutine (Death ());
+			}
 		}
 	}
 
@@ -89,9 +93,9 @@ public class TurboTunnel_GameManager : MonoBehaviour {
 		SoundManager.instance.PlaySingle(explosion, 1);
 
 		explosionAni.Play ();
-
+		player.DestroyShip ();
 		yield return new WaitForSeconds (2.5f);
-		Destroy(player);
+
 		SceneManager.LoadSceneAsync ("Game");
 
 	}

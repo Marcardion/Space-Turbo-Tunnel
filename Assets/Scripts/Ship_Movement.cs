@@ -6,6 +6,9 @@ public class Ship_Movement : MonoBehaviour {
 
 	Rigidbody myRigidbody;
 
+	public bool active = true;
+	public GameObject ship_model;
+
 	public float speed;
 
 	private bool isGrounded;
@@ -59,6 +62,11 @@ public class Ship_Movement : MonoBehaviour {
 		{
 			isGrounded = false;
 		}
+	}
+
+	public void DestroyShip()
+	{
+		Destroy (ship_model);
 	}
 
 }
